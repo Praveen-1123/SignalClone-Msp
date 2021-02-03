@@ -41,9 +41,9 @@ const LoginScreen = ({ navigation }) => {
             </View>
 
             <Button onPress={SignIn} 
-                containerStyle={styles.buttonLogin} type="outline" title="Login" titleStyle={{color: 'white'}}/>
+                containerStyle={styles.buttonLogin} type="clear" title="Login" titleStyle={{color: 'white'}}/>
             <Button onPress={() => navigation.navigate('Register')}
-                containerStyle={styles.buttonRegister}  type="outline" title="Register" titleStyle={{color: '#FF6200'}}/>
+                containerStyle={styles.buttonRegister}  type="clear" title="Register" titleStyle={{color: '#FF6200'}}/>
             <View style={{height: 50}} />
         </View>
     );

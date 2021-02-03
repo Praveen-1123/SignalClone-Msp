@@ -66,7 +66,7 @@ const RegisterScreen = ({ navigation}) => {
                 containerStyle={styles.Button}
                 onPress= {register}
                 title="Register"
-                type="outline" 
+                type="clear" 
                 titleStyle={{color: 'white'}}
             />
             <View style={{height: 30}}/>
