@@ -28,7 +28,8 @@ const ChatScreen = ({navigation, route}) => {
                     flexDirection: "row",
                     alignItems: "center",
                 }}>
-                    <Avatar rounded source={{uri: "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png"}}/>
+                    <Avatar rounded source={{uri: 
+                        messages[0]?.data.photoURL, }}/>
                     <Text 
                         style= {{ color: "white", marginLeft: 10, fontWeight: "700" }}>
                         {route.params.chatName}
@@ -58,7 +59,7 @@ const ChatScreen = ({navigation, route}) => {
                 </View>
             )
         })
-    }, [navigation])
+    }, [navigation, messages])
 
     const sendMessage = () => {
         Keyboard.dismiss();
@@ -92,14 +93,15 @@ const ChatScreen = ({navigation, route}) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
             <StatusBar style="light" />
             <KeyboardAvoidingView
-                behavior={Platform.OS === "android" ? "padding" : "height" }
+                // behavior={Platform.OS === "ios" ? "padding" : "width" }
                 style= {styles.container}
-                keyboardVerticalOffset={90}>
+                // keyboardVerticalOffset={90}
+                >
 
             <TouchableWithoutFeedback onPress= {Keyboard.dismiss}>
 
             <>
-                <ScrollView>
+                <ScrollView contentContainerStyle= {{ paddingTop: 15 }} >
                     {messages.map(({id, data}) => (
                         data.email === auth.currentUser.email ? (
                             <View key={id} style={styles.reciever}>
@@ -117,14 +119,29 @@ const ChatScreen = ({navigation, route}) => {
                                     rounded
                                     size={30}
                                     source={{
-                                        uri: data.photoURL,
-                                }}/>
+                                        uri: data.photoURL
+                                }}/> 
                                 <Text style={styles.recieverText}>{data.message}</Text>
                             </View>
                         ): (
-                            <View style={styles.sender}> 
-                                <Avatar />
+                            <View key={id} style={styles.sender}> 
+                                <Avatar 
+                                position="absolute"
+                                containerStyle={{
+                                    position:"absolute",
+                                    bottom: -15,
+                                    left: -5,
+                                }}
+                                bottom={-15}
+                                left={-5}
+                                rounded
+                                size={30}
+                                source={{
+                                    uri: data.photoURL,
+                                }}
+                                />
                                 <Text style={styles.senderText}>{data.message}</Text>
+                                <Text style={styles.senderName}>{data.displayName}</Text>
                             </View>
                         )
                     ))}
@@ -187,5 +204,22 @@ const styles = StyleSheet.create({
         margin: 15,
         maxWidth: "80%",
         position: "relative"
+    },
+    senderName: {
+        left: 10,
+        paddingRight: 10,
+        fontSize: 10,
+        color: "white"
+    },
+    senderText: {
+        color: "white",
+        fontWeight: "500",
+        marginLeft: 10,
+        marginBottom: 15
+    },
+    recieverText: {
+        color: "black",
+        fontWeight: "500",
+        marginLeft: 10
     }
 })
